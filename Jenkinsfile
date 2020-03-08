@@ -1,32 +1,26 @@
 pipeline{
     agent any
+    tools{
+        go
+    }
     stages{
-        stage("A"){
+        stage("Preparation"){
             steps{
-                echo "========executing A========"
+                echo "Installing supporting toolset"
+                sh "go get -u github.com/jstemmer/go-junit-report"
             }
-            post{
-                always{
-                    echo "========Nooot========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
+        }
+        stage("Test"){
+            steps{
+               echo "Start testing"
+               sh "cd app"
+               sh "go test -v 2>&1 | go-junit-report > report.xml"
             }
         }
     }
     post{
         always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
+            junit "app/report.xml"
         }
     }
 }
