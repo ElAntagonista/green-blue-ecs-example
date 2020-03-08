@@ -1,0 +1,13 @@
+//Using Docker as agent for build
+pipeline {
+    agent {
+        docker { image 'golang' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'go --version'
+            }
+        }
+    }
+}
