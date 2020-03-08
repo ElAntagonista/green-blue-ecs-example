@@ -1,9 +1,9 @@
 pipeline{
     agent any
-    tools{
-        go
+    tools {
+        go 'Go 1.13'
     }
-    stages{
+    stages {
         stage("Preparation"){
             steps{
                 echo "Installing supporting toolset"
@@ -18,7 +18,7 @@ pipeline{
             }
         }
     }
-    post{
+    post {
         always{
             junit "app/report.xml"
         }
