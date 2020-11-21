@@ -10,7 +10,6 @@ func fileHandler() http.Handler {
 }
 
 func main() {
-
 	http.Handle("/", fileHandler())
 
 	log.Fatal(http.ListenAndServe(":80", nil))
