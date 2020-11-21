@@ -22,19 +22,20 @@ pipeline {
                 sh 'cd app && go build'
             }
         }
-        //Trigger job
-        //Evaluate condition on
-        // stage("Trigger Another Pipeline"){
-        //     when { expression { return true} }   
-        //     steps {
-        //         build job: 'Progress/BuildGo'
-        //      }
-        // }
+        Trigger job
+        Evaluate condition on
+        stage("Trigger Another Pipeline"){
+            when { expression { return true} }   
+            steps {
+                build job: 'Progress/BuildGo'
+             }
+        }
     }
     post {
         always{
             junit "app/report.xml"
             cleanWs()
+            logstash
         }
     }
 }
